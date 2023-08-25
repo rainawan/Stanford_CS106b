@@ -1,0 +1,81 @@
+Warmup
+-------
+Q1. How do the values of the member variables of `allBalls[0]` change from iteration to iteration? Specifically, what happens to the values of `_id`, `_x`, and `_y`?
+A1. The _x value decreases by a set amount of numbers (5 for [0] and 4 for[1] in this iteration). On the other hand, the _y variable increases. When a ball hits the wall, the opposite occurs. For instance, if _x was decreasing by 5 until it reached 0, it would increase by 5 afterwards. The _id remains the same because it represents the ball.
+
+Q2. How do the values of the member variables of the stuck ball change from iteration to iteration? Contrast this to your answer to the previous question. Specifically, how are `_x`, and `_y` changing?
+A2. _x and _y seem to increase and decrease simultaneously with no linear change in either. Since it is stuck in one spot, it seems as though the coordinates of that spot are moving back and forth. However, there is no consistent increase or decrease in coordinates.
+
+Q3. After forcing the stuck ball to position (0, 0), does the ball move normally from there or does it stay stuck?
+A3. The ball moves normally after changing the initial position to (0, 0).
+
+Q4: What bug was causing certain balls to become stuck?
+A4: Randomizing a position outside the range of the starting position caused come balls to become stuck. Since moving the starting position is set to 0, 0, we know that the range of velocity and direction will always be within bounds.
+
+Q5. On your system, what is the observed consequence of these memory errors:
+A5. - access an index outside the allocated array bounds? The program runs in that memory outside the allocated array bounds have some stored value but this is not reliable because it is garbage value. An out of bounds index means that we are unable to access or mutate that value, and a memory leak occurs.
+- delete same memory twice? This raises an error saying that the "functions detect corrupt state." We are trying to delete memory that does not exist.
+- access memory after it has been deleted? The program runs but we are unable to access the memory we are looking for because it is returning garbage values. Deleting an allocated array means that we no longer have access to that array.
+
+
+PQArray
+-------
+Q6. There are extensive comments in both the interface (`pqarray.h`) and implementation (`pqarray.cpp`). Explain how and why the comments in the interface differ from those in the implementation. Consider both the content and audience for the documentation.
+A6. The interface comments simply describe to the user what a function performs. It provides the time complexity and an explanation but nothing too in depth. The implementation describes how a function works in terms of memory allocation, arrays, indices, and priority value.
+
+Q7. The class declares member variables `_numAllocated` and `_numFilled`. What is the difference between these two counts and why are both needed?
+A7. _numAllocated represents the number of allocated space in our given array. We need this number to prevent going over our number of spaces. _numFilled represents the current number of values in our array. This variable must always be less than or equal to _numAllocated.
+
+Q8. Give the results from your time trials and explain how they support your prediction for the Big-O runtimes of `enqueue` and `dequeue`.
+A8. The following results support my prediction of O(1) time complexity. Enqueue and dequeue from a queue is a constant time operation so regardless of number of elements we are adding and removing, it takes 0 seconds. 
+Size : Time
+500000 : 0.000 secs
+1e+06  : 0.000 secs
+2e+06  : 0.000 secs
+4e+06  : 0.000 secs
+
+PQ Client
+---------
+Q9. Based on the Big O of `enqueue`/`dequeue`, what do you expect for the Big O of `pqSort` if using a `PQArray`? Run some timing trials to confirm your prediction, and include that data in your answer.
+A9. I expect the Big O of pqSort using at array to be O(1). Since enqueue and dequeue have an O(1) operation and we are doing it n times, it would still result as an O(1) operation.
+Size  : Time
+5000  : 0.093 sec
+10000 : 0.377 sec
+20000 : 1.512 sec
+40000 : 6.018 sec
+
+Q10. Based on the Big O of `enqueue`/`dequeue`, what do you expect for the Big O of `topK` in terms of `k` and `n` if using a `PQArray`? Run some timing trials to confirm your prediction, and include that data in your answer.
+A10. topK will run in O(k) because we are enqueueing a maximum of k values. When the queue exceeds k, it dequeues the least priority, maintaining k terms. The space complexity is also O(k) because we are adding k elements to a vector of DataPoints.
+Size    : Time
+500000  : 0.454 sec
+1000000 : 0.907 sec
+2000000 : 1.813 sec
+4000000 : 3.553 sec
+
+PQHeap
+------
+Q11. Start with an empty binary heap and enqueue the nine `DataPoint`s in the order shown below and show the result. You only need to show the final heap, not intermediate steps. Draw the heap as tree-like diagram with root element on top, its two children below, and so on. Yes, we know that we're asking you to draw pictures in a text file (we love the [AsciiFlow](http://asciiflow.com/) tool for "drawing" in text).
+A11. 
+
+
+Q12. Make two calls to `dequeue` on the above binary heap and draw the updated result.
+A12. TODO
+
+Q13. Draw the array representation of the binary heap above. Label each element with its array index.
+A13. TODO
+
+Q14. Re-run the timing trials on `pqclient.cpp` and provide your results that confirm that `pqSort` runs in time O(NlogN) and `topK` in O(NlogK).
+A14. TODO
+
+Embedded Ethics
+---------------
+Q15. Different institutions consider different factors in admissions and convert criteria to numbers in different ways.  Regardless of which specific factors are considered, should an admissions department use a purely numerical rankings based system? Why or why not?
+
+If yes, discuss what factors you think would be best to include when calculating numerical rankings and why those factors are well-represented as numbers. If not, discuss what factors you think should be considered in college admissions that would be difficult to represent as a numerical score. There are no right or wrong answers here - we're genuinely interested in your thoughts!
+A15. TODO
+
+Q16. Describe a real-world system that requires ranking but in which classification with a single number misses important context (i.e. a priority queue might not be the best way to store the objects being ranked). Make sure to use an example that hasn't already been discussed in lecture or in this assignment.
+A16. TODO
+
+Q17. How would you design an implementation for the hospital's priority queue that dynamically determines which patient is the best match whenever a new organ becomes available? __Note:__ Your design does not have to be the fastest or most efficient.
+A17. TODO
